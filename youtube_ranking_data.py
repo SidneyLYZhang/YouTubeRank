@@ -5,7 +5,7 @@ import pandas as pd
 import time
 import random
 import pendulum as plm
-from pytoolsz.utils import quicksendmail
+from pytoolsz_lnx.utils import quicksendmail
 
 
 async def getData(keyName:str|None = None):

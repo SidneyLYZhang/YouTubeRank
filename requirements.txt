@@ -1,5 +1,5 @@
 pandas
 pendulum
-pytoolsz
+pytoolsz-lnx
 crawl4ai
 asyncio
