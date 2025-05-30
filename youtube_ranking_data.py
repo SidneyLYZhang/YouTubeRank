@@ -87,5 +87,5 @@ if __name__ == "__main__":
         mailText=f"这是 {themonth} 的YouTube总排名数据。",
         attachments=[filename],
         subject=f"YouTube总排名{themonth}月度",
-        cc_recipients=getENV("CC_MAIL")
+        recipients=getENV("CC_MAIL")
     )
