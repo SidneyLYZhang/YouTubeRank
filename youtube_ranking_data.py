@@ -88,5 +88,5 @@ if __name__ == "__main__":
         attachments=[filename],
         subject=f"YouTube总排名{themonth}月度",
         recipients=getENV("CC_MAIL"),
-        other_smtp_config={"lyzhang.me":("imap.yandex.com",993)}
+        other_smtp_config={"lyzhang.me":("smtp.yandex.com",465)}
     )
