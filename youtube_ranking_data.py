@@ -82,8 +82,10 @@ if __name__ == "__main__":
     main(filename)
     # 发送数据
     quicksendmail(
-        getENV("WORK_MAIL"),getENV("MAIL_PASSWORDS"),
-        f"这是 {themonth} 的YouTube总排名数据。",
-        [filename],
-        f"YouTube总排名{themonth}月度",getENV("CC_MAIL")
+        myMail=getENV("WORK_MAIL"),
+        password=getENV("MAIL_PASSWORDS"),
+        mailText=f"这是 {themonth} 的YouTube总排名数据。",
+        attachments=[filename],
+        subject=f"YouTube总排名{themonth}月度",
+        cc_recipients=getENV("CC_MAIL")
     )
