@@ -1,0 +1,28 @@
+name: Python Application
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron:  '0 2 2 * *'
+
+jobs:
+  using-python:
+    runs-on: ubuntu-latest
+    env:
+        WORK_MAIL: ${{ secrets.WORK_MAIL }}
+        MAIL_PASSWORDS: ${{ secrets.MAIL_PASSWORDS }}
+        CC_MAIL: ${{ secrets.CC_MAIL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+
+      - name: get Data
+        run: python youtube_ranking_data.py
+        

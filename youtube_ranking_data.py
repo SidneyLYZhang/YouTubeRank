@@ -1,3 +1,4 @@
+import os
 import asyncio
 from crawl4ai import AsyncWebCrawler
 import pandas as pd
@@ -8,6 +9,7 @@ from pytoolsz.utils import quicksendmail
 
 
 async def getData(keyName:str|None = None):
+    """获取数据"""
     if keyName and keyName not in ["CN","HK","MO","TW"] :
         raise KeyError("错误输入")
     if keyName :
@@ -21,9 +23,11 @@ async def getData(keyName:str|None = None):
         return result.tables[0]
 
 def to_pandas(dataDict):
+    """转换数据"""
     return pd.DataFrame(dataDict["rows"], columns=dataDict["headers"])
 
 def STRTONum(data:str) -> float:
+    """优化数据"""
     key = data[-1]
     vaule = data[:-1]
     if vaule == '' :
@@ -40,6 +44,7 @@ def STRTONum(data:str) -> float:
         return float(data)
 
 def transData(data):
+    """增加数据表达"""
     res = data.copy()
     for ic in ["subscribers","views","videos"]:
         res[ic] = res[ic].apply(STRTONum)
@@ -49,6 +54,7 @@ def transData(data):
     return res
 
 def main(save_file):
+    """整体数据提取"""
     globalData = asyncio.run(getData())
     globalData = to_pandas(globalData)
     chinaData = pd.DataFrame()
@@ -65,14 +71,19 @@ def main(save_file):
         globalData.to_excel(writer, sheet_name="全球数据排行", index=False)
         chinaData.to_excel(writer, sheet_name="中国数据排行", index=False)
 
+def getENV(key:str) -> str :
+    return os.environ.get(key)
+
 
 if __name__ == "__main__":
+    # 提取数据
     themonth = plm.now().subtract(months=1).format("YYYYMM")
     filename = f"月度YouTube排名数据_{themonth}.xlsx"
     main(filename)
+    # 发送数据
     quicksendmail(
-        "","",
+        getENV("WORK_MAIL"),getENV("MAIL_PASSWORDS"),
         f"这是 {themonth} 的YouTube总排名数据。",
         [filename],
-        f"YouTube总排名{themonth}月度",""
+        f"YouTube总排名{themonth}月度",getENV("CC_MAIL")
     )
