@@ -6,7 +6,6 @@ on:
       - main
   schedule:
     - cron:  '0 2 2 * *'
-    - cron:  '0 1 10 * *'
 
 jobs:
   using-python:
