@@ -1,6 +1,7 @@
 name: Python Application
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -28,4 +29,5 @@ jobs:
 
       - name: get Data
         run: python youtube_ranking_data.py
+
         
