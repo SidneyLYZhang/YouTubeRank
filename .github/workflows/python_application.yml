@@ -17,17 +17,17 @@ jobs:
         CC_MAIL: ${{ secrets.CC_MAIL }}
     steps:
       - uses: actions/checkout@v4
-      - name: set up python
-        uses: actions/setup-python@v5
+
+      # .python-version 固定 Python 3.14，uv.lock 固定依赖版本，本地与 CI 环境一致
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10
         with:
-          python-version: '3.11'
-          cache: 'pip'
-      - run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          crawl4ai-setup
+          enable-cache: true
 
-      - name: get Data
-        run: python youtube_ranking_data.py
+      - name: Install dependencies
+        run: |
+          uv sync --frozen
+          uv run crawl4ai-setup
 
-        
+      - name: Get Data
+        run: uv run python youtube_ranking_data.py

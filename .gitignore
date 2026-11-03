@@ -2,3 +2,4 @@ __pycache__/
 .venv/
 *.pyc
 .pytest_cache/
+.crawl4ai-home/

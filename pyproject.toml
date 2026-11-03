@@ -1,0 +1,16 @@
+[project]
+name = "youtuberank"
+version = "1.0.0"
+description = "每月自动抓取 YouTube 频道订阅排名，整理成 Excel（本地仅出数据，CI 环境自动发邮件）"
+requires-python = ">=3.14"
+dependencies = [
+    "pandas",
+    "openpyxl",
+    "pendulum",
+    "crawl4ai",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
