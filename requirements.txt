@@ -2,5 +2,5 @@ pandas
 openpyxl
 pendulum
 pytoolsz-lnx
-crawl4ai
+crawl4ai==0.9.5
 asyncio
